@@ -262,8 +262,7 @@ module Devise
       end
 
       def is_navigational_format?
-        # Tweak for Turbo
-        Devise.navigational_formats.include?(request_format) || request_format == :turbo_stream
+        Devise.navigational_formats.include?(request_format)
       end
 
       # Check if flash messages should be emitted. Default is to do it on

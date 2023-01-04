@@ -72,10 +72,6 @@ module Devise
 
       flash.now[:alert] = i18n_message(:invalid) if is_flashing_format?
       self.response = recall_app(warden_options[:recall]).call(request.env)
-      # Tweak for Turbo
-      if request_format == :turbo_stream
-        self.response[0] = 422
-      end
     end
 
     def redirect
@@ -248,7 +244,7 @@ module Devise
     end
 
     def is_navigational_format?
-      Devise.navigational_formats.include?(request_format) || request_format == :turbo_stream
+      Devise.navigational_formats.include?(request_format)
     end
 
     # Check if flash messages should be emitted. Default is to do it on

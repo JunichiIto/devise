@@ -31,6 +31,14 @@ class Devise::SessionsController < DeviseController
     respond_to_on_destroy
   end
 
+  # Tweak for Turbo
+  def process(action, *args)
+    if action == 'new' && request.method == 'POST' && is_navigational_format?
+      response.status = 422
+    end
+    super
+  end
+
   protected
 
   def sign_in_params
